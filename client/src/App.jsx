@@ -1,11 +1,25 @@
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './Pages/Home'
+import About from './Pages/About'
+import Dashboard from './Pages/Dashboard'
+import Projects from './Pages/Projects'
+import SignIn from './Pages/SignIn'
+import SignUp from './Pages/SignUp'
 
 function App() {
 
   return (
-    <>
-      <h1 className='text-3xl'> here we go </h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element = { <Home/> } />
+        <Route path='/about' element = { <About/> } />
+        <Route path='/dashboard' element = { <Dashboard/> } />
+        <Route path='/projects' element = { <Projects/> } />
+        <Route path='/signIn' element = { <SignIn/> } />
+        <Route path='/signUp' element = { <SignUp/> } />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
