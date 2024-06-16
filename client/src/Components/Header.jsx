@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuHeight, setMenuHeight] = useState(0);
-  
+
   const location = useLocation();
   const path = location.pathname;
 
@@ -36,8 +36,8 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="flex items-center justify-end flex-grow lg:flex lg:gap-4">
-            <div className="hidden lg:flex items-center gap-4 space-x-4">
+          <div className="flex items-center justify-end flex-grow lg:flex lg:gap-4 lg:justify-between">
+            <div className="hidden lg:flex items-center gap-8 text-lg">
               <Link
                 to='/'
                 className={`text-gray-700 font-semibold hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/' ? 'text-green-500' : ''}`}
@@ -57,36 +57,35 @@ const Header = () => {
                 Projects
               </Link>
             </div>
-            <form className='hidden sm:flex lg:flex-1 lg:justify-center lg:ml-4'>
-              <div className='flex items-center border border-gray-300 rounded-lg overflow-hidden'>
-                <TextInput 
+
+            <div className="flex items-center gap-4">
+              <form className="hidden lg:flex items-center gap-2">
+                <TextInput
                   type='text'
                   placeholder='Search...'
+                  rightIcon={AiOutlineSearch}
                   className='border-none focus:ring-0'
                 />
-                <button type="submit" className='bg-blue-500 text-white p-2'>
-                  <AiOutlineSearch className='w-5 h-5' />
-                </button>
-              </div>
-            </form>
-            <Button
-              className='w-12 h-10 mx-4 flex items-center justify-center'
-              color='gray'
-              pill
-            >
-              <FaMoon />
-            </Button>
-            <Link to='/sign-in' className="hidden md:block">
-              <Button className='bg-blue-500 text-white hidden lg:block p-1'>
-                Sign In
+              </form>
+              <Button
+                className='w-12 h-10 flex items-center justify-center'
+                color='gray'
+                pill
+              >
+                <FaMoon />
               </Button>
-            </Link>
-            <Button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden md:block p-2"
-            >
-              <AiOutlineMenu className="w-6 h-5 text-gray-700 dark:text-gray-500" />
-            </Button>
+              <Link to='/sign-in'>
+                <Button gradientDuoTone='purpleToBlue' outline>
+                  Sign In
+                </Button>
+              </Link>
+              <Button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="lg:hidden p-2"
+              >
+                <AiOutlineMenu className="w-6 h-5 text-gray-700 dark:text-gray-500" />
+              </Button>
+            </div>
           </div>
         </div>
       </Navbar>

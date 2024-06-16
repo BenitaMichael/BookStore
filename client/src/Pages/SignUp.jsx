@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png';
+import { Label } from 'flowbite-react';
 
 
 const SignUp = () => {
   return (
     <div className='min-h-screen mt-20'>
-      <div className="flex p-4 max-w-3xl mx-auto">
+      <div className="flex p-4 max-w-3xl mx-auto flex-col md:flex-row">
         {/* left */}
         <div className="">
         <Link
@@ -18,11 +19,17 @@ const SignUp = () => {
                 Dark-Light
               </span>
             </Link>
-            <p className='text-black font-semibold'>Home to wonders and adventures</p>
+            <p className='text-black font-semibold'>Home to wonders and adventures. A world different from what you know awaits you...</p>
           </div>
 
         {/* right */}
-        <div className=""></div>
+        <div className="">
+          <form action="">
+            <div className="">
+              <Label value='Enter Your Username' />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )
