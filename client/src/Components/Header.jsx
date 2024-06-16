@@ -37,7 +37,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-end flex-grow lg:flex lg:gap-4 lg:justify-between">
-            <div className="hidden lg:flex items-center gap-8 text-lg">
+            <div className="hidden lg:flex items-center gap-8 text-md">
               <Link
                 to='/'
                 className={`text-gray-700 font-semibold hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/' ? 'text-green-500' : ''}`}
