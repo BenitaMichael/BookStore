@@ -59,7 +59,7 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <form className="hidden lg:flex items-center gap-2">
+              <form className="hidden md:flex items-center gap-2">
                 <TextInput
                   type='text'
                   placeholder='Search...'
@@ -74,7 +74,7 @@ const Header = () => {
               >
                 <FaMoon />
               </Button>
-              <Link to='/sign-in'>
+              <Link to='/sign-in' className="hidden lg:block">
                 <Button gradientDuoTone='purpleToBlue' outline>
                   Sign In
                 </Button>
