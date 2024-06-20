@@ -81,9 +81,10 @@ const Header = () => {
               </Link>
               <Button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden p-2"
+                className="lg:hidden p-0"
+                gradientDuoTone='purpleToBlue' outline
               >
-                <AiOutlineMenu className="w-6 h-5 text-gray-700 dark:text-gray-500" />
+                <AiOutlineMenu className="w-6 h-5" />
               </Button>
             </div>
           </div>
