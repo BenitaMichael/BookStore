@@ -1,9 +1,10 @@
 import { FaMoon } from 'react-icons/fa';
 import { AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
-import { Button, Navbar, TextInput } from 'flowbite-react';
+import { Avatar, Button, Dropdown, DropdownHeader, Navbar, TextInput } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +12,7 @@ const Header = () => {
 
   const location = useLocation();
   const path = location.pathname;
+  const { currentUser } = useSelector(state => state.user)
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -74,11 +76,38 @@ const Header = () => {
               >
                 <FaMoon />
               </Button>
-              <Link to='/sign-in' className="hidden lg:block">
-                <Button gradientDuoTone='purpleToBlue' outline>
-                  Sign In
-                </Button>
-              </Link>
+              {currentUser ? (
+                <Dropdown
+                    arrowIcon={false}
+                    inline
+                    label = {
+                      <Avatar 
+                        alt='user'
+                        img = {currentUser.profilePicture}
+                        rounded
+                      />
+                    }
+                  >
+                    <DropdownHeader>
+                      <span className='block text-sm'>@{currentUser.username}</span>
+                      <span className='block text-sm font-medium truncate'>@{currentUser.email}</span>
+                    </DropdownHeader>
+                      <Link to={'/dashboard?tab=profile'}>
+                        <Dropdown.Item>Profile</Dropdown.Item>
+                      </Link>
+                      <Dropdown.Divider />
+                      <Dropdown.Item>Sign out</Dropdown.Item>
+                </Dropdown>
+              ):
+                (
+                  <Link to='/sign-in' className="hidden lg:block">
+                    <Button gradientDuoTone='purpleToBlue' outline>
+                      Sign In
+                    </Button>
+                  </Link>
+                )
+              }
+              
               <Button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden p-0"
