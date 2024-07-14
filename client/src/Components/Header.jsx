@@ -1,10 +1,11 @@
-import { FaMoon } from 'react-icons/fa';
+import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 import { Avatar, Button, Dropdown, DropdownHeader, Navbar, TextInput } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleTheme } from '../redux/theme/themeSlice';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,8 @@ const Header = () => {
   const location = useLocation();
   const path = location.pathname;
   const { currentUser } = useSelector(state => state.user)
+  const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -73,8 +76,9 @@ const Header = () => {
                 className='w-12 h-10 flex items-center justify-center'
                 color='gray'
                 pill
+                onClick={() => dispatch(toggleTheme())}
               >
-                <FaMoon />
+                 {theme === 'light' ? <FaSun /> : <FaMoon />}
               </Button>
               {currentUser ? (
                 <Dropdown
