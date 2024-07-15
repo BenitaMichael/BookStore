@@ -90,7 +90,7 @@ const SignUp = () => {
               />
             </div>
             <Button
-              gradientDuoTone='purpleToBlue'
+              className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none'
               type='submit'
               disabled={loading}
             >

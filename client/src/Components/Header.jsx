@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <div className="relative">
-      <Navbar className="m-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 lg:px-8">
+      <Navbar className="m-2 bg-[#FAFFEB] dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center flex-grow">
             <Link
