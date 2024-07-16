@@ -82,36 +82,31 @@ const Header = () => {
               </Button>
               {currentUser ? (
                 <Dropdown
-                    arrowIcon={false}
-                    inline
-                    label = {
-                      <Avatar 
-                        alt='user'
-                        img = {currentUser.profilePicture}
-                        rounded
-                      />
-                    }
-                  >
-                    <DropdownHeader>
-                      <span className='block text-sm'>@{currentUser.username}</span>
-                      <span className='block text-sm font-medium truncate'>@{currentUser.email}</span>
-                    </DropdownHeader>
-                      <Link to={'/dashboard?tab=profile'}>
-                        <Dropdown.Item>Profile</Dropdown.Item>
-                      </Link>
-                      <Dropdown.Divider />
-                      <Dropdown.Item>Sign out</Dropdown.Item>
-                </Dropdown>
-              ):
-                (
-                  <Link to='/sign-in' className="hidden lg:block">
-                    <Button gradientDuoTone='purpleToBlue' outline>
-                      Sign In
-                    </Button>
+                  arrowIcon={false}
+                  inline
+                  label={
+                    <Avatar alt='user' img={currentUser.profilePicture} rounded />
+                  }
+                >
+                  <Dropdown.Header>
+                    <span className='block text-sm'>@{currentUser.username}</span>
+                    <span className='block text-sm font-medium truncate'>
+                      {currentUser.email}
+                    </span>
+                  </Dropdown.Header>
+                  <Link to={'/dashboard?tab=profile'}>
+                    <Dropdown.Item>Profile</Dropdown.Item>
                   </Link>
-                )
-              }
-              
+                  <Dropdown.Divider />
+                  <Dropdown.Item>Sign out</Dropdown.Item>
+                </Dropdown>
+                 ) : (
+                <Link to='/sign-in'>
+                  <Button className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none' outline>
+                    Sign In
+                  </Button>
+                </Link>
+              )}
               <Button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden p-0"
