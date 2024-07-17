@@ -16,7 +16,7 @@ const DashboardSidebar = () => {
   }, [location.search]);
   return (
     <div>
-      <Sidebar className='w-full md:w-56 min-h-screen'>
+      <Sidebar className='w-full md:w-56'>
         <SidebarItems>
             <SidebarItemGroup>
               <Link to = '/dashboard?tab=profile'>
