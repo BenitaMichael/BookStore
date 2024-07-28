@@ -1,8 +1,14 @@
-import { Alert, Button, Textarea } from 'flowbite-react';
+import { Alert, Button, TextInput } from 'flowbite-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure
+} from '../redux/user/userSlice';
+
 import { app } from '../firebase';
 import {
   getDownloadURL,
@@ -17,13 +23,12 @@ const DashboardProfile = () => {
   const [imgFileUrl, setImgFileUrl] = useState(null);
   const [imgFileUploadProgress, setImgFileUploadProgress] = useState(null);
   const [imgFileUploadError, setImgFileUploadError] = useState(null);
+  const [imgFileUploading, setImgFileUploading] = useState(false);
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
+  const [updateUserError, setUpdateUserError] = useState(null);
   const imgRef = useRef();
-
-  console.log(imgFileUploadError);
-
-  const handleMouseHover = () => {
-    console.log('Change Over');
-  };
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
 
   const handleImgChange = (e) => {
     const file = e.target.files[0];
@@ -46,8 +51,8 @@ const DashboardProfile = () => {
   }, [imgFile]);
 
   const uploadImg = async () => {
-    setImageFileUploading(true);
-    setImageFileUploadError(null);
+    setImgFileUploading(true);
+    setImgFileUploadError(null);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imgFile.name;
     const storageRef = ref(storage, fileName);
@@ -72,15 +77,58 @@ const DashboardProfile = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgFileUrl(downloadURL);
+          setFormData({ ...formData, profilePicture: downloadURL });
+          setImgFileUploading(false);
+          setImgFileUploadProgress(null);
         });
       }
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUpdateUserSuccess(null);
+    setUpdateUserError(null);
+    if (Object.keys(formData).length === 0) {
+      setUpdateUserError('No changes made')
+      return;
+    }
+    if (imgFileUploading) {
+      setUpdateUserError('Please wait for the image to upload')
+      return;
+    }
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(updateFailure(data.message));
+        setUpdateUserError(data.message);
+      } else {
+        dispatch(updateSuccess(data));
+        setUpdateUserSuccess("User's profile updated successfully");
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+      setUpdateUserError(error.message)
+    }
+  };
+  console.log(formData);
+
   return (
-    <div className="max-w-lg mx-auto p-3 w-full">
-      <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
-      <form className="flex flex-col gap-4">
+    <div className="max-w-lg mx-auto w-full">
+      <h1 className="my-6 text-center font-semibold text-3xl">Profile</h1>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         <input
           type="file"
           accept="image/*"
@@ -97,9 +145,9 @@ const DashboardProfile = () => {
           }`}
           onClick={() => imgRef.current.click()}
         >
-          {imgFileUploadProgress && (
-            <CircularProgressbar 
-              value={imgFileUploadProgress || 0} 
+          {imgFileUploadProgress && imgFileUploadProgress < 100 && (
+            <CircularProgressbar
+              value={imgFileUploadProgress || 0}
               text={`${imgFileUploadProgress}%`}
               strokeWidth={5}
               styles={{
@@ -117,31 +165,37 @@ const DashboardProfile = () => {
                 },
               }}
             />
-          )
-          }
+          )}
           <img
             src={imgFileUrl || currentUser.profilePicture}
             alt="user"
             className="rounded-full w-full h-full object-cover"
           />
         </div>
-        {imgFileUploadError && <Alert color='failure'>{imgFileUploadError}</Alert>}
-        <Textarea
+        {imgFileUploadError && <Alert color="failure">{imgFileUploadError}</Alert>}
+        <TextInput
           type="text"
           id="username"
           placeholder="username"
           defaultValue={currentUser.username}
+          onChange={handleChange}
         />
-        <Textarea
-          type="text"
+        <TextInput
+          type="email"
           id="email"
           placeholder="email"
           defaultValue={currentUser.email}
+          onChange={handleChange}
         />
-        <Textarea type="text" id="password" placeholder="password" />
+        <TextInput
+          type="password"
+          id="password"
+          placeholder="password"
+          onChange={handleChange}
+        />
         <Button
           type="submit"
-          className="bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none my-2"
+          className="bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none my-3"
         >
           Update
         </Button>
@@ -150,6 +204,17 @@ const DashboardProfile = () => {
         <div className="text-red-500 text-center mt-4">
           {imgFileUploadError}
         </div>
+      )}
+      {updateUserSuccess && (
+        <Alert color='success' className='mt-5'>
+          {updateUserSuccess}
+        </Alert>
+      )}
+
+      {updateUserError && (
+        <Alert color='failure' className='mt-5'>
+          {updateUserError}
+        </Alert>
       )}
       <div className="text-[#FE5448] flex justify-between mt-5">
         <span className="cursor-pointer">Delete Account</span>
