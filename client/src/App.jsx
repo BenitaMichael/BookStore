@@ -13,6 +13,8 @@ import SignUp from './Pages/SignUp'
 import Header from './Components/Header'
 import FooterComponent from './Components/FooterComponent'
 import PrivateRoute from './Components/PrivateRoute'
+import OnlyAdminRoute from './Components/OnlyAdminRoute'
+import CreateStory from './Pages/CreateStory'
 
 function App() {
 
@@ -24,6 +26,9 @@ function App() {
           <Route path='/about' element = { <About/> } />
           <Route element={<PrivateRoute />}>
             <Route path='/dashboard' element={<Dashboard />} />
+          </Route>
+          <Route element={<OnlyAdminRoute />}>
+            <Route path='/create-story' element={<CreateStory />} />
           </Route>
           <Route path='/projects' element = { <Projects/> } />
           <Route path='/sign-in' element = { <SignIn/> } />

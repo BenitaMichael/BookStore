@@ -1,4 +1,5 @@
 import { Alert, Button, Modal, ModalBody, ModalHeader, TextInput } from 'flowbite-react';
+import { Link } from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,7 +25,7 @@ import {
 } from 'firebase/storage';
 
 const DashboardProfile = () => {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imgFile, setImgFile] = useState(null);
   const [imgFileUrl, setImgFileUrl] = useState(null);
   const [imgFileUploadProgress, setImgFileUploadProgress] = useState(null);
@@ -236,9 +237,24 @@ const DashboardProfile = () => {
         <Button
           type="submit"
           className="bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none my-3"
+          disabled={loading || imgFileUploading}
         >
-          Update
+          {loading ? 'Loading...' : 'Update'}
         </Button>
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-story'}>
+              <Button
+                type='button'
+                outline
+                className='bg-[#FE5448] hover:!bg-[#FE5448] text-white border-none my-3 w-full'
+              >
+                Create a Story
+              </Button>
+            </Link>
+            
+          )
+        }
       </form>
       {imgFileUploadError && (
         <div className="text-red-500 text-center mt-4">
