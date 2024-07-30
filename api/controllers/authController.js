@@ -46,8 +46,8 @@ export const signin = async (req, res, next) => {
             return next(errorHandler(400, 'Invalid credentials'))
         }
         const token = jwt.sign(
-            { id: validatedUser._id},
-            process.env.JWT_SECRET, 
+            { id: validatedUser._id, isAdmin: validatedUser.isAdmin},
+            process.env.JWT_SECRET,
             {expiresIn: '1d'}
         )
         const { password: pass, ...rest } = validatedUser._doc;
@@ -65,7 +65,7 @@ export const googleAuth = async(req, res, next) => {
     try {
         const user = await User.findOne({email});
         if(user){
-            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+            const token = jwt.sign({id: user._id, isAdmin : user.isAdmin}, process.env.JWT_SECRET);
             const{password, ...rest} = user._doc;
             res.status(200).cookie('access_token', token,{
                 httpOnly: true,
