@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute.js';
 import authRoute from './routes/authRoute.js';
+import storiesRoute from './routes/storiesRoute.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -27,7 +28,8 @@ app.listen(PORT, () => {
 });
 
 app.use('/api/user', userRoute);
-app.use('/api/auth', authRoute)
+app.use('/api/auth', authRoute);
+app.use('/api/story', storiesRoute);
 
 app.use((err, req, res, next) =>{
     const statusCode = err.statusCode || 500;
