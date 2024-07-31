@@ -15,6 +15,7 @@ import FooterComponent from './Components/FooterComponent'
 import PrivateRoute from './Components/PrivateRoute'
 import OnlyAdminRoute from './Components/OnlyAdminRoute'
 import CreateStory from './Pages/CreateStory'
+import Stories from './Pages/Stories'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route path='/projects' element = { <Projects/> } />
           <Route path='/sign-in' element = { <SignIn/> } />
           <Route path='/signUp' element = { <SignUp/> } />
+          <Route path="/stories/:slug" element={<Stories />} />
         </Routes>
       <FooterComponent/>
     </BrowserRouter>
