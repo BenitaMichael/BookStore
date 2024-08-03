@@ -97,6 +97,15 @@ export default function CreateStory() {
               setFormData({ ...formData, title: e.target.value })
             }
           />
+          <TextInput
+            type='text'
+            placeholder='Author'
+            required
+            id='author'
+            onChange={(e) =>
+              setFormData({ ...formData, author: e.target.value })
+            }
+          />
           <Select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
