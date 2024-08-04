@@ -7,7 +7,6 @@ const DashboardStories = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userStories, setUserStories] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  console.log(userStories)
 
   useEffect(() =>{
     const fetchStories = async () =>{
