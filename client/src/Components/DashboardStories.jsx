@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const DashboardStories = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userStories, setUserStories] = useState([]);
+  const [showMore, setShowMore] = useState(true);
   console.log(userStories)
 
   useEffect(() =>{
@@ -15,6 +16,9 @@ const DashboardStories = () => {
         const data = await res.json()
         if(res.ok){
           setUserStories(data.stories)
+          if (data.stories.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         console.log(error.message)
@@ -24,6 +28,25 @@ const DashboardStories = () => {
       fetchStories();
     }
   }, [currentUser._id])
+
+  const handleShowMore = async () => {
+    const startIndex = userStories.length;
+    try {
+      const res = await fetch(
+        `/api/story/getstories?userId=${currentUser._id}&startIndex=${startIndex}`
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setUserStories((prev) => [...prev, ...data.stories]);
+        if (data.stories.length < 9) {
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       {currentUser.isAdmin && userStories.length > 0 ? (
@@ -84,9 +107,17 @@ const DashboardStories = () => {
               </TableBody>
             ))}
           </Table>
+          {showMore && (
+            <button
+              onClick={handleShowMore}
+              className='w-full text-teal-500 self-center text-sm py-7'
+            >
+              Show more
+            </button>
+          )}
         </>
       ):(
-      <h2 className='text-center mt-7 font-semibold text-3xl'>You have uploaded 0 stories</h2>
+      <h2 className='text-center mt-7 font-semibold text-3xl font-medium'>You have uploaded 0 stories</h2>
     )}
     </div>
   )
