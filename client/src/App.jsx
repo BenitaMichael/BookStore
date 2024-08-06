@@ -8,6 +8,7 @@ import Dashboard from './Pages/Dashboard'
 import Projects from './Pages/Projects'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
+import UpdateStory from './Pages/UpdateStory'
 
 // COMPONENTS
 import Header from './Components/Header'
@@ -30,6 +31,7 @@ function App() {
           </Route>
           <Route element={<OnlyAdminRoute />}>
             <Route path='/create-story' element={<CreateStory />} />
+            <Route path='/update-story/:storyId' element={<UpdateStory />} />
           </Route>
           <Route path='/projects' element = { <Projects/> } />
           <Route path='/sign-in' element = { <SignIn/> } />

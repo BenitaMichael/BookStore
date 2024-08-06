@@ -72,3 +72,38 @@ export const getStories = async(req, res, next) =>{
     next(error)
   }
 }
+
+export const deleteStory = async(req, res, next) =>{
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to delete this story'));
+  }
+  try {
+    await Story.findByIdAndDelete(req.params.storyId);
+    res.status(200).json('The story has been deleted');
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateStory = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to update this post'));
+  }
+  try {
+    const updatedStory = await Story.findByIdAndUpdate(
+      req.params.storyId,
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          category: req.body.category,
+          image: req.body.image,
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedStory);
+  } catch (error) {
+    next(error);
+  }
+};
