@@ -4,7 +4,7 @@ import { Sidebar, SidebarItem, SidebarItemGroup, SidebarItems } from 'flowbite-r
 import { useDispatch, useSelector } from 'react-redux';
 import { signOutSuccess } from '../redux/user/userSlice';
 
-import { HiArrowSmRight, HiBookOpen, HiUser } from 'react-icons/hi'
+import { HiArrowSmRight, HiBookOpen, HiOutlineUserGroup, HiUser } from 'react-icons/hi'
 
 const DashboardSidebar = () => {
   const location = useLocation();
@@ -57,6 +57,18 @@ const DashboardSidebar = () => {
                         icon={HiBookOpen}
                         as='div'>
                           Stories
+                    </SidebarItem>
+                  </Link>
+                )
+              }
+
+              {
+                currentUser.isAdmin && (
+                  <Link to='/dashboard?tab=users'>
+                    <SidebarItem active={tab ==='users'}
+                        icon={HiOutlineUserGroup}
+                        as='div'>
+                          Users
                     </SidebarItem>
                   </Link>
                 )
