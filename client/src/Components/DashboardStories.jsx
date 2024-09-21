@@ -2,7 +2,7 @@ import { Button, Modal, ModalBody, ModalHeader, Table, TableBody, TableCell, Tab
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 const DashboardStories = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -11,25 +11,25 @@ const DashboardStories = () => {
   const [showModal, setShowModal] = useState(false);
   const [storyIdToDelete, setStoryIdToDelete] = useState('');
 
-  useEffect(() =>{
-    const fetchStories = async () =>{
+  useEffect(() => {
+    const fetchStories = async () => {
       try {
-        const res = await fetch(`/api/story/getstories?userId=${currentUser._id}`)
-        const data = await res.json()
-        if(res.ok){
-          setUserStories(data.stories)
+        const res = await fetch(`/api/story/getstories?userId=${currentUser._id}`);
+        const data = await res.json();
+        if (res.ok) {
+          setUserStories(data.stories);
           if (data.stories.length < 9) {
             setShowMore(false);
           }
         }
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
       }
-    }
-    if( currentUser.isAdmin ){
+    };
+    if (currentUser.isAdmin) {
       fetchStories();
     }
-  }, [currentUser._id])
+  }, [currentUser._id]);
 
   const handleShowMore = async () => {
     const startIndex = userStories.length;
@@ -71,7 +71,6 @@ const DashboardStories = () => {
     }
   };
 
-
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       {currentUser.isAdmin && userStories.length > 0 ? (
@@ -83,49 +82,50 @@ const DashboardStories = () => {
               <TableHeadCell>Title</TableHeadCell>
               <TableHeadCell>Author</TableHeadCell>
               <TableHeadCell>Category</TableHeadCell>
-              <TableHeadCell><span>Edit</span></TableHeadCell>
+              <TableHeadCell>Chapters</TableHeadCell>
+              <TableHeadCell>Edit</TableHeadCell>
               <TableHeadCell>Delete</TableHeadCell>
             </TableHead>
-            {userStories.map((story) =>(
-              <TableBody className='divide-y'>
-              <TableRow className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <TableCell>
-                  {new Date(story.updatedAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  <Link to={`/story/${story.slug}`}>
-                    <img 
-                      src={story.image}
-                      alt={story.title}
-                      className='w-20 h-10 bg-gray-500'
-                    />
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link
-                    to={`/story/${story.slug}`}
-                    className='font-medium text-gray-900 dark:text-white'
+            <TableBody className='divide-y'>
+              {userStories.map((story) => (
+                <TableRow key={story._id} className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                  <TableCell>
+                    {new Date(story.updatedAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/story/${story.slug}`}>
+                      <img 
+                        src={story.image}
+                        alt={story.title}
+                        className='w-20 h-10 bg-gray-500'
+                      />
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link
+                      to={`/story/${story.slug}`}
+                      className='font-medium text-gray-900 dark:text-white'
                     >
                       {story.title}
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    {story.author}
+                  </TableCell>
+                  <TableCell>
+                    {story.category}
+                  </TableCell>
+                  <TableCell>
+                    {story.chapters.length} {/* Display the number of chapters */}
+                  </TableCell>
+                  <TableCell>
+                  <Link to={`/update-story/${story._id}`} className="text-teal-500 font-medium hover:underline">
+                    Edit
                   </Link>
-                </TableCell>
 
-                <TableCell>
-                  {story.author}
-                </TableCell>
-
-                <TableCell>
-                  {story.category}
-                </TableCell>
-
-                <TableCell>
-                  <Link to={`/update-story/${story._id}`} className='text-teal-500 font-medium hover:underline'>
-                    <span>Edit</span>
-                  </Link>
-                </TableCell>
-
-                <TableCell>
-                  <span
+                  </TableCell>
+                  <TableCell>
+                    <span
                       onClick={() => {
                         setShowModal(true);
                         setStoryIdToDelete(story._id);
@@ -134,12 +134,10 @@ const DashboardStories = () => {
                     >
                       Delete
                     </span>
-                </TableCell>
-
-
+                  </TableCell>
                 </TableRow>
-              </TableBody>
-            ))}
+              ))}
+            </TableBody>
           </Table>
           {showMore && (
             <button
@@ -150,11 +148,10 @@ const DashboardStories = () => {
             </button>
           )}
         </>
-      ):(
-      <h2 className='text-center mt-7 font-semibold text-3xl font-medium'>You have uploaded 0 stories</h2>
-    )}
-
-<Modal
+      ) : (
+        <h2 className='text-center mt-7 font-semibold text-3xl font-medium'>You have uploaded 0 stories</h2>
+      )}
+      <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
         popup
@@ -179,7 +176,7 @@ const DashboardStories = () => {
         </Modal.Body>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default DashboardStories
+export default DashboardStories;

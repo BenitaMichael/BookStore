@@ -31,7 +31,7 @@ function App() {
           </Route>
           <Route element={<OnlyAdminRoute />}>
             <Route path='/create-story' element={<CreateStory />} />
-            <Route path='/update-story/:storyId' element={<UpdateStory />} />
+            <Route path="/update-story/:storyId" element={<UpdateStory />} />
           </Route>
           <Route path='/projects' element = { <Projects/> } />
           <Route path='/sign-in' element = { <SignIn/> } />

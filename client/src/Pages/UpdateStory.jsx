@@ -14,39 +14,42 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
 export default function UpdateStory() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
-  const { storyId } = useParams();
-
+  const [newChapter, setNewChapter] = useState({ title: '', content: '' });
+  
   const navigate = useNavigate();
   const { currentUser } = useSelector(state => state.user);
 
-  useEffect(() => {
-    try {
-      const fetchStory = async () => {
-        const res = await fetch(`/api/story/getstories?storyId=${storyId}`);
-        const data = await res.json();
-        if (!res.ok) {
-          console.log(data.message);
-          setPublishError(data.message);
-          return;
-        }
-        if (res.ok) {
-          setPublishError(null);
-          setFormData(data.stories[0]);
-        }
-      };
+  const { storyId } = useParams();
 
-      fetchStory();
+useEffect(() => {
+  const fetchStory = async () => {
+    console.log(storyId)
+    try {
+      const res = await fetch(`/api/story/getstories?storyId=${storyId}`);
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+        setPublishError(data.message);
+        return;
+      }
+      if (res.ok) {
+        setPublishError(null);
+        setFormData(data.stories[0]);
+      }
     } catch (error) {
       console.log(error.message);
     }
-  }, [storyId]);
+  };
+
+  fetchStory();
+}, [storyId]); // Make sure to include storyId in the dependency array
+
 
   const handleImageUpload = async () => {
     try {
@@ -84,6 +87,37 @@ export default function UpdateStory() {
       console.log(error);
     }
   };
+
+  const handleChapterChange = (index, field, value) => {
+    const updatedChapters = formData.chapters.map((chapter, i) =>
+      i === index ? { ...chapter, [field]: value } : chapter
+    );
+    setFormData({ ...formData, chapters: updatedChapters });
+  };
+
+  const handleAddChapter = () => {
+    setFormData({
+      ...formData,
+      chapters: [...formData.chapters, { title: '', content: '' }],
+    });
+  };
+
+
+  const handleDeleteChapter = (index) => {
+    const chapterToDelete = formData.chapters[index];
+    
+    // Store the chapter id to be removed in a separate state variable
+    setFormData({
+      ...formData,
+      chapters: formData.chapters.filter((_, i) => i !== index),
+      removeChapterIds: [
+        ...(formData.removeChapterIds || []),
+        chapterToDelete._id,
+      ],
+    });
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -108,6 +142,7 @@ export default function UpdateStory() {
       setPublishError('Something went wrong');
     }
   };
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-5 font-semibold'>Update a story...</h1>
@@ -125,26 +160,25 @@ export default function UpdateStory() {
             value={formData.title}
           />
           <TextInput
-            type='text'
-            placeholder='Author'
+            type="text"
+            placeholder="Author"
             required
-            id='author'
-            onChange={(e) =>
-              setFormData({ ...formData, author: e.target.value })
-            }
+            id="author"
+            onChange={(e) => setFormData({ ...formData, author: e.target.value })}
             value={formData.author}
           />
+          
           <Select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
             value={formData.category}
           >
-              <option value='uncategorized'>Select a category</option>
+              <option value='Uncategorized'>Select a category</option>
               <option value='Romance'>Romance</option>
-              <option value='mystery'>Mystery</option>
-              <option value='family'>Family</option>
-              <option value='horror'>Horror</option>
+              <option value='Mystery'>Mystery</option>
+              <option value='Family'>Family</option>
+              <option value='Horror'>Horror</option>
           </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
@@ -190,6 +224,49 @@ export default function UpdateStory() {
             setFormData({ ...formData, content: value });
           }}
         />
+        {formData.chapters && formData.chapters.map((chapter, index) => (
+          <div key={index} className='flex flex-col gap-2 mb-4'>
+            <TextInput
+              type='text'
+              placeholder='Chapter Title'
+              value={chapter.title}
+              onChange={(e) => handleChapterChange(index, 'title', e.target.value)}
+            />
+            <ReactQuill
+              theme='snow'
+              value={chapter.content}
+              placeholder='Chapter Content'
+              onChange={(value) => handleChapterChange(index, 'content', value)}
+              className='h-40 mb-2'
+            />
+            <Button
+              type='button'
+              color='failure'
+              onClick={() => handleDeleteChapter(index)}
+            >
+              Delete Chapter
+            </Button>
+          </div>
+        ))}
+        <Button
+          type='button'
+          className='bg-[#A500E0] hover:!bg-[#A500E0] w-36 mx-auto my-2'
+          onClick={handleAddChapter}
+        >
+          Add Chapter
+        </Button>
+
+        <div className='flex flex-col gap-2 mb-4'>
+          <h2 className='text-xl font-semibold'>Epilogue</h2>
+          <ReactQuill
+            theme='snow'
+            value={formData.epilogue}
+            placeholder='Write the epilogue...'
+            onChange={(value) => setFormData({ ...formData, epilogue: value })}
+            className='h-40 mb-2'
+          />
+        </div>
+
         <Button type='submit' className='bg-[#A500E0] hover:!bg-[#A500E0] w-36 mx-auto my-2'>
           Update
         </Button>
