@@ -77,7 +77,6 @@ const StoryPage = () => {
                     <div className="underline underline-offset-4 decoration-3 decoration-black mx-auto w-8 mt-1" />
                     {story.chapters.map((chapter, index) => (
                         <div key={index} className="mt-5">
-                            {/* Chapter number and title */}
                             <h3 className="text-xl font-bold text-center story-chapters">
                                 Chapter {index + 1}: {chapter.title}
                             </h3>
