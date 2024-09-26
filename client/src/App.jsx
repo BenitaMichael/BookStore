@@ -9,19 +9,22 @@ import Projects from './Pages/Projects'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import UpdateStory from './Pages/UpdateStory'
+import CreateStory from './Pages/CreateStory'
+import StoryPage from './Pages/StoryPage'
 
 // COMPONENTS
 import Header from './Components/Header'
 import FooterComponent from './Components/FooterComponent'
 import PrivateRoute from './Components/PrivateRoute'
 import OnlyAdminRoute from './Components/OnlyAdminRoute'
-import CreateStory from './Pages/CreateStory'
-import StoryPage from './Pages/StoryPage'
+import ScrollToTop from './Components/ScrollToTop'
+
 
 function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header/>
         <Routes>
           <Route path='/' element = { <Home/> } />

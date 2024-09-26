@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { Button, Spinner } from 'flowbite-react';
+import CommentSection from '../Components/CommentSection';
 
 const StoryPage = () => {
     const { storySlug } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [story, setStory] = useState(null);
-    console.log(story);
-    
 
     useEffect(() => {
         const fetchStory = async () => {
@@ -103,6 +102,8 @@ const StoryPage = () => {
                     />
                 </div>
             )}
+
+            <CommentSection storyId={story._id}/>
     </main>
   )
 }
