@@ -3,12 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 
 import { Button, Spinner } from 'flowbite-react';
 import CommentSection from '../Components/CommentSection';
+import StoryCard from '../Components/StoryCard'
 
 const StoryPage = () => {
     const { storySlug } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [story, setStory] = useState(null);
+    const [recentStories, setRecentStories] = useState(null);
 
     useEffect(() => {
         const fetchStory = async () => {
@@ -34,6 +36,21 @@ const StoryPage = () => {
 
         fetchStory();
     }, [storySlug]);
+
+    useEffect(() => {
+        try {
+          const fetchRecentStories = async () => {
+            const res = await fetch(`/api/story/getstories?limit=3`);
+            const data = await res.json();
+            if (res.ok) {
+              setRecentStories(data.stories);
+            }
+          };
+          fetchRecentStories();
+        } catch (error) {
+          console.log(error.message);
+        }
+    }, []);
 
     if (loading)
         return (
@@ -104,6 +121,15 @@ const StoryPage = () => {
             )}
 
             <CommentSection storyId={story._id}/>
+
+            <div className='flex flex-col justify-center items-center mb-5'>
+                <h1 className='text-xl mt-5'>Recent Stories</h1>
+                <div className='flex flex-wrap gap-5 mt-5 justify-center'>
+                {recentStories &&
+                    recentStories.map((story) => <StoryCard key={story._id} story={story} />)}
+                </div>
+            </div>
+
     </main>
   )
 }
