@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const StoryCard = ({ story }) => {
     return (
-        <div className='group relative w-full border border-teal-500 hover:border-2 h-[360px] overflow-hidden rounded-lg sm:w-[300px] transition-all'>
+        <div className='group relative w-full border border-teal-500 hover:border-2 h-[360px] overflow-hidden rounded-lg sm:w-[360px] transition-all'>
           <Link to={`/story/${story.slug}`}>
             <img
               src={story.image}

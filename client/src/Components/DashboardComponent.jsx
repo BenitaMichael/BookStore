@@ -131,7 +131,7 @@ const DashboardComponent = () => {
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
           <div className='flex justify-between  p-3 text-sm font-semibold'>
             <h1 className='text-center p-2'>Recent users</h1>
-            <Button outline gradientDuoTone='purpleToPink'>
+            <Button className='border-2 border-[#A500E0] bg-white text-black hover:!bg-[#A500E0] hover:text-white'>
               <Link to={'/dashboard?tab=users'}>See all</Link>
             </Button>
           </div>
@@ -160,7 +160,7 @@ const DashboardComponent = () => {
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
           <div className='flex justify-between  p-3 text-sm font-semibold'>
             <h1 className='text-center p-2'>Recent comments</h1>
-            <Button outline gradientDuoTone='purpleToPink'>
+            <Button className='border-2 border-[#A500E0] bg-white text-black hover:!bg-[#A500E0] hover:text-white'>
               <Link to={'/dashboard?tab=comments'}>See all</Link>
             </Button>
           </div>
@@ -185,7 +185,7 @@ const DashboardComponent = () => {
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
           <div className='flex justify-between  p-3 text-sm font-semibold'>
             <h1 className='text-center p-2'>Recent Stories</h1>
-            <Button outline gradientDuoTone='purpleToPink'>
+            <Button className='border-2 border-[#A500E0] bg-white text-black hover:!bg-[#A500E0] hover:text-white'>
               <Link to={'/dashboard?tab=stories'}>See all</Link>
             </Button>
           </div>
