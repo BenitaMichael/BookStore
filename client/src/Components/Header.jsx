@@ -1,7 +1,7 @@
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 import { Avatar, Button, Dropdown, DropdownHeader, Navbar, TextInput } from 'flowbite-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,10 +13,28 @@ const Header = () => {
   const [menuHeight, setMenuHeight] = useState(0);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const path = location.pathname;
-  const { currentUser } = useSelector(state => state.user)
+  const { currentUser } = useSelector(state => state.user);
   const { theme } = useSelector((state) => state.theme);
+  const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
 
   const handleSignOut = async () => {
     try {
@@ -81,22 +99,26 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <form className="hidden md:flex items-center gap-2">
+              <form onSubmit={handleSubmit}>
                 <TextInput
                   type='text'
                   placeholder='Search...'
                   rightIcon={AiOutlineSearch}
-                  className='border-none focus:ring-0'
+                  className='hidden lg:inline'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </form>
+
               <Button
                 className='w-12 h-10 flex items-center justify-center'
                 color='gray'
                 pill
                 onClick={() => dispatch(toggleTheme())}
               >
-                 {theme === 'light' ? <FaSun /> : <FaMoon />}
+                {theme === 'light' ? <FaSun /> : <FaMoon />}
               </Button>
+
               {currentUser ? (
                 <Dropdown
                   arrowIcon={false}
@@ -117,13 +139,14 @@ const Header = () => {
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
                 </Dropdown>
-                 ) : (
+              ) : (
                 <Link to='/sign-in'>
                   <Button className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none' outline>
                     Sign In
                   </Button>
                 </Link>
               )}
+
               <Button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden p-0"

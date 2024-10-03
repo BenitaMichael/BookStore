@@ -18,6 +18,7 @@ import FooterComponent from './Components/FooterComponent'
 import PrivateRoute from './Components/PrivateRoute'
 import OnlyAdminRoute from './Components/OnlyAdminRoute'
 import ScrollToTop from './Components/ScrollToTop'
+import Search from './Components/Search'
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path='/projects' element = { <Projects/> } />
           <Route path='/sign-in' element = { <SignIn/> } />
           <Route path='/signUp' element = { <SignUp/> } />
+          <Route path='/search' element={<Search />} />
           <Route path="/story/:storySlug" element={<StoryPage />} />
         </Routes>
       <FooterComponent/>
