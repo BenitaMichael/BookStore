@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import Dashboard from './Pages/Dashboard'
-import Projects from './Pages/Projects'
+import ContactPage from './Pages/Contact'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import UpdateStory from './Pages/UpdateStory'
@@ -37,7 +37,7 @@ function App() {
             <Route path='/create-story' element={<CreateStory />} />
             <Route path="/update-story/:storyId" element={<UpdateStory />} />
           </Route>
-          <Route path='/projects' element = { <Projects/> } />
+          <Route path='/projects' element = { <ContactPage/> } />
           <Route path='/sign-in' element = { <SignIn/> } />
           <Route path='/signUp' element = { <SignUp/> } />
           <Route path='/search' element={<Search />} />
