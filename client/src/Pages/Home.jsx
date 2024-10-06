@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
+      <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto bg-[#FAFFEB]'>
         <h1 className='text-3xl font-bold lg:text-6xl'>Welcome to DarkLight</h1>
         <p className='text-gray-500 text-xs sm:text-sm'>
           Here you'll find a variety of stories written by an ever evolving and creative mind.
@@ -33,13 +33,13 @@ const Home = () => {
         </p>
         <Link
           to='/search'
-          className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'
+          className='text-xs sm:text-sm text-[#FE5448] font-bold hover:underline'
         >
           View all stories
         </Link>
       </div>
 
-      {loading && <p className="text-center">Loading stories...</p>}
+      {loading && <p className="text-center text-[#FE5448]">Loading stories...</p>}
 
       {error && <p className="text-center text-red-500">{error}</p>}
 
@@ -54,7 +54,7 @@ const Home = () => {
             </div>
             <Link
               to={'/search'}
-              className='text-lg text-teal-500 hover:underline text-center'
+              className='text-lg text-[#FE5448] hover:underline text-center'
             >
               View all stories
             </Link>

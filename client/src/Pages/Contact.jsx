@@ -2,7 +2,7 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 py-10 px-5 sm:px-10 lg:px-20">
+    <div className="bg-[#FAFFEB] dark:bg-gray-900 py-10 px-5 sm:px-10 lg:px-20">
       <div className="max-w-5xl mx-auto">
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Contact Us</h1>
@@ -18,7 +18,7 @@ const ContactPage = () => {
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Send Us a Message</h2>
+          <h2 className="text-2xl font-bold mb-6 text-[#FE5448] dark:text-[#FE5448]">Send Us a Message</h2>
           <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
             <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -65,7 +65,7 @@ const ContactPage = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 transition duration-300 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                className="px-6 py-2 bg-[#A500E0] text-white font-semibold rounded-md shadow-md hover:bg-[#A500E0] dark:hover:bg-[#A500E0]"
               >
                 Send Message
               </button>

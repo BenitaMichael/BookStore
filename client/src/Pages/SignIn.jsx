@@ -48,12 +48,11 @@ const SignIn = () => {
         <div className="flex-1">
           <Link
             to='/'
-            className='w-12 m-2 flex items-center bg-gradient-to-r from-purple-900 via-purple-600 to-pink-500 rounded-lg text-4xl font-bold p-2'
+            className='w-12 m-2 flex items-center rounded-lg text-4xl font-bold py-2'
           >
-            <img src={logo} alt="Logo" className='h-10 w-10' />
-            <span className='px-2 py-1 text-black dark:text-white whitespace-nowrap'>
+            <h1 className='py-1 text-[#FE5448] dark:text-[#FE5448] whitespace-nowrap'>
               Dark-Light
-            </span>
+            </h1>
           </Link>
           <p className='text-black dark:text-gray-200 font-semibold text-center md:text-left'>
             Home to wonders and adventures. A world different from what you know awaits you...
@@ -85,7 +84,7 @@ const SignIn = () => {
               />
             </div>
             <Button
-              className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none'
+              className='bg-[#A500E0] hover:!bg-[#A500E0] dark:bg-[#A500E0] dark:hover:!bg-[#A500E0] text-white border-none'
               type='submit'
               disabled={loading}
             >

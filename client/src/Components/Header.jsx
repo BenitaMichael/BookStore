@@ -67,7 +67,7 @@ const Header = () => {
           <div className="flex items-center flex-grow">
             <Link
               to='/'
-              className='m-2 flex items-center bg-gradient-to-r from-purple-900 via-purple-600 to-pink-500 rounded-lg text-sm sm:text-xl font-semibold dark:text-white p-2'
+              className='m-2 flex items-center bg-[#FE5448] rounded-lg text-sm sm:text-xl font-semibold dark:text-white p-2'
             >
               <img src={logo} alt="Logo" className='h-8 w-8' />
               <span className='px-2 py-1 text-white whitespace-nowrap'>
@@ -77,7 +77,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-end flex-grow lg:flex lg:gap-4 lg:justify-between">
-            <div className="hidden lg:flex items-center gap-16 text-md"> {/* Increased gap */}
+            <div className="hidden lg:flex items-center gap-16 text-md"> 
               <Link
                 to='/'
                 className={`text-gray-700 font-semibold hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/' ? 'text-green-500' : ''}`}
@@ -141,7 +141,7 @@ const Header = () => {
                 </Dropdown>
               ) : (
                 <Link to='/sign-in'>
-                  <Button className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none' outline>
+                  <Button className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none text-xs sm:text-base' outline>
                     Sign In
                   </Button>
                 </Link>
@@ -172,11 +172,6 @@ const Header = () => {
         </Link>
         <Link to='/contact' className={`block px-4 py-2 font-semibold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/contact' ? 'text-green-500' : ''}`}>
           Contact
-        </Link>
-        <Link to='/sign-in' className="block px-4 py-2">
-          <Button className="bg-blue-500 w-full text-white">
-            Sign In
-          </Button>
         </Link>
       </div>
     </div>

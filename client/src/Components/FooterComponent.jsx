@@ -11,7 +11,7 @@ const FooterComponent = () => {
           <div className='mt-5'>
             <Link
               to='/'
-              className='m-2 md:w-auto flex items-center bg-gradient-to-r from-purple-900 via-purple-600 to-pink-500 rounded-lg text-sm sm:text-xl font-semibold dark:text-white p-2'
+              className='m-2 md:w-auto flex items-center bg-[#FE5448] rounded-lg text-sm sm:text-xl font-semibold dark:text-white p-2'
             >
               <img src={logo} alt="Logo" className='h-8 w-8' />
               <span className='px-2 py-1 text-white whitespace-nowrap'>
