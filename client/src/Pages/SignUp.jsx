@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
-import Oauth from '../Components/Oauth'
+import Oauth from '../Components/Oauth';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -52,41 +52,46 @@ const SignUp = () => {
             className='w-12 m-2 flex items-center bg-gradient-to-r from-purple-900 via-purple-600 to-pink-500 rounded-lg text-4xl font-bold p-2'
           >
             <img src={logo} alt="Logo" className='h-10 w-10' />
-            <span className='px-2 py-1 text-black whitespace-nowrap'>
+            <span className='px-2 py-1 text-black dark:text-white whitespace-nowrap'>
               Dark-Light
             </span>
           </Link>
-          <p className='text-black font-semibold text-center md:text-left'>Home to wonders and adventures. A world different from what you know awaits you...</p>
+          <p className='text-black dark:text-gray-200 font-semibold text-center md:text-left'>
+            Home to wonders and adventures. A world different from what you know awaits you...
+          </p>
         </div>
 
         {/* right */}
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div>
-              <Label value='Your username' />
+              <Label className='dark:text-gray-300' value='Your username' />
               <TextInput
                 type='text'
                 placeholder='Username'
                 id='username'
                 onChange={handleChange}
+                className='bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500'
               />
             </div>
             <div>
-              <Label value='Your email' />
+              <Label className='dark:text-gray-300' value='Your email' />
               <TextInput
                 type='email'
                 placeholder='name@company.com'
                 id='email'
                 onChange={handleChange}
+                className='bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500'
               />
             </div>
             <div>
-              <Label value='Your password' />
+              <Label className='dark:text-gray-300' value='Your password' />
               <TextInput
                 type='password'
                 placeholder='Password'
                 id='password'
                 onChange={handleChange}
+                className='bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500'
               />
             </div>
             <Button
@@ -106,7 +111,7 @@ const SignUp = () => {
             <Oauth />
           </form>
           <div className='flex gap-2 text-sm mt-5'>
-            <span>Have an account?</span>
+            <span className='text-black dark:text-gray-300'>Have an account?</span>
             <Link to='/sign-in' className='text-blue-500'>
               Sign In
             </Link>
@@ -122,4 +127,4 @@ const SignUp = () => {
   );
 }
 
-export default SignUp
+export default SignUp;

@@ -77,7 +77,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-end flex-grow lg:flex lg:gap-4 lg:justify-between">
-            <div className="hidden lg:flex items-center gap-8 text-md">
+            <div className="hidden lg:flex items-center gap-16 text-md"> {/* Increased gap */}
               <Link
                 to='/'
                 className={`text-gray-700 font-semibold hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/' ? 'text-green-500' : ''}`}
@@ -91,10 +91,10 @@ const Header = () => {
                 About
               </Link>
               <Link
-                to='/projects'
-                className={`text-gray-700 font-semibold hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/projects' ? 'text-green-500' : ''}`}
+                to='/contact'
+                className={`text-gray-700 font-semibold hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/contact' ? 'text-green-500' : ''}`}
               >
-                Projects
+                Contact
               </Link>
             </div>
 
@@ -170,8 +170,8 @@ const Header = () => {
         <Link to='/about' className={`block px-4 py-2 font-semibold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/about' ? 'text-green-500' : ''}`}>
           About
         </Link>
-        <Link to='/projects' className={`block px-4 py-2 font-semibold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/projects' ? 'text-green-500' : ''}`}>
-          Projects
+        <Link to='/contact' className={`block px-4 py-2 font-semibold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white ${path === '/contact' ? 'text-green-500' : ''}`}>
+          Contact
         </Link>
         <Link to='/sign-in' className="block px-4 py-2">
           <Button className="bg-blue-500 w-full text-white">

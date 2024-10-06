@@ -37,7 +37,7 @@ function App() {
             <Route path='/create-story' element={<CreateStory />} />
             <Route path="/update-story/:storyId" element={<UpdateStory />} />
           </Route>
-          <Route path='/projects' element = { <ContactPage/> } />
+          <Route path='/contact' element = { <ContactPage/> } />
           <Route path='/sign-in' element = { <SignIn/> } />
           <Route path='/signUp' element = { <SignUp/> } />
           <Route path='/search' element={<Search />} />
