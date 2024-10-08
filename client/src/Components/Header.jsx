@@ -69,7 +69,7 @@ const Header = () => {
               to='/'
               className='m-2 flex items-center bg-[#FE5448] rounded-lg text-sm sm:text-xl font-semibold dark:text-white p-2'
             >
-              <img src={logo} alt="Logo" className='h-8 w-8' />
+              <img src={logo} alt="Logo" className='h-8 w-8 hidden md:block' />
               <span className='px-2 py-1 text-white whitespace-nowrap'>
                 Dark-Light
               </span>
@@ -141,7 +141,7 @@ const Header = () => {
                 </Dropdown>
               ) : (
                 <Link to='/sign-in'>
-                  <Button className='bg-[#A500E0] hover:!bg-[#A500E0] text-white border-none text-xs sm:text-base' outline>
+                  <Button className='bg-[#A500E0] hover:!bg-[#A500E0] w-24 text-white border-none text-xs sm:text-base' outline>
                     Sign In
                   </Button>
                 </Link>
@@ -149,10 +149,9 @@ const Header = () => {
 
               <Button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden p-0"
-                gradientDuoTone='purpleToBlue' outline
+                className="lg:hidden p-0 !bg-white text-black"
               >
-                <AiOutlineMenu className="w-6 h-5" />
+                <AiOutlineMenu className="w-5 h-5" />
               </Button>
             </div>
           </div>
