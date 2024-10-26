@@ -69,7 +69,7 @@ const StoryPage = () => {
         <img
             src={story && story.image}
             alt={story && story.title}
-            className='mt-10 p-3 max-h-[600px] w-full object-cover'
+            className='mt-10 p-3 max-h-[500px] w-full object-cover'
         />
 
          {/* Prologue */}

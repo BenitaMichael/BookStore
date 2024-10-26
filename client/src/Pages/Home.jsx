@@ -58,7 +58,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7">
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-semibold text-center">Recent Stories</h2>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
               {stories.map((story) => (
                 <StoryCard key={story._id} story={story} />
               ))}
