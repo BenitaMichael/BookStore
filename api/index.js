@@ -6,6 +6,7 @@ import authRoute from './routes/authRoute.js';
 import storiesRoute from './routes/storiesRoute.js';
 import commentRoute from './routes/commentRoute.js';
 import cookieParser from 'cookie-parser';
+import path from 'path'
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ mongoose.connect(process.env.MONGO)
     .catch((err) => {
         console.log(err);
     });
+
+const __dirname = path.resolve();
 
 const PORT = 3000;
 
@@ -32,6 +35,8 @@ app.use('/api/user', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/story', storiesRoute);
 app.use('/api/comment', commentRoute);
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
 app.use((err, req, res, next) =>{
     const statusCode = err.statusCode || 500;
