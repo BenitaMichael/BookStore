@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO)
         console.log(err);
     });
 
-const __dirname = path.resolve();
+    const __dirname = path.resolve();
 
 const PORT = 3000;
 
@@ -37,6 +37,10 @@ app.use('/api/story', storiesRoute);
 app.use('/api/comment', commentRoute);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) =>{
     const statusCode = err.statusCode || 500;
