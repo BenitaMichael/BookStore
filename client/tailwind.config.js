@@ -8,7 +8,6 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "node_modules/flowbite-react/lib/esm/**/*.js",
-    ...flowbite.content, // Spread the content from Flowbite
   ],
   theme: {
     extend: {},
