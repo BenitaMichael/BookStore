@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import StoryCard from '../Components/StoryCard';
-import bookImage from '../assets/bookImage.png';
+import bookImage from '../assets/Books/etheral.png';
+import bookImage1 from '../assets/Books/flowerhand-sepia.png';
+import bookImage2 from '../assets/Books/wolf.png';
+import bookImage3 from '../assets/Books/flowerhand-1.png';
+import bookImage4 from '../assets/Books/WaterDrop.png';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
-const bookImages = [bookImage, bookImage, bookImage, bookImage, bookImage];
+const bookImages = [bookImage, bookImage1, bookImage2, bookImage3, bookImage4];
 
 const Home = () => {
   const [stories, setStories] = useState([]);
