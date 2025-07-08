@@ -44,19 +44,47 @@ const Home = () => {
     <>
       <section className="flex flex-col lg:flex-row items-center gap-6 p-28 px-3 max-w-6xl mx-auto bg-[#FAFFEB] dark:bg-gray-900 dark:text-white">
       {/* Text content */}
-      <div className="flex-1">
-        <h1 className="text-3xl font-bold lg:text-6xl">Welcome to DarkLight</h1>
-        <p className="text-gray-500 text-xs sm:text-sm py-8">
-          Here you'll find a variety of stories written by an ever evolving and creative mind.
-          An unexplored world awaits you.
-        </p>
-        <Link
-          to="/search"
-          className="text-xs sm:text-sm text-[#FE5448] font-bold hover:underline"
-        >
-          View all stories
-        </Link>
-      </div>
+<div className="flex-1 space-y-6">
+  <h1 className="text-3xl font-bold lg:text-6xl">
+    Welcome to <span className="text-[#FE5448]">DarkLight</span>
+  </h1>
+
+  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+    Discover powerful narratives and immersive tales crafted with creativity and depth.
+    Whether you're here to read, explore, or write — your journey starts now.
+  </p>
+
+  <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
+    Join a growing community of readers and writers bringing worlds to life through stories.
+  </p>
+
+  <div className="flex gap-4 flex-wrap">
+    <Link
+      to="/signup"
+      className="bg-[#FE5448] text-white px-5 py-2 rounded-md text-sm font-semibold shadow hover:bg-[#e3443a] transition"
+    >
+      Get Started
+    </Link>
+
+    <Link
+      to="/signin"
+      className="border border-[#FE5448] text-[#FE5448] px-5 py-2 rounded-md text-sm font-semibold hover:bg-[#fff1f0] dark:hover:bg-gray-800 transition"
+    >
+      Sign In
+    </Link>
+
+    
+  </div>
+  <div className='mt-3'>
+     <Link
+      to="/search"
+      className="my-4 text-sm text-[#FE5448] font-bold hover:underline self-center"
+    >
+      Browse Stories
+    </Link>
+  </div>
+ 
+</div>
 
       {/* Animated stacked books */}
       <div className="flex-1 hidden lg:flex flex-col gap-4 items-center relative h-[400px] w-full overflow-hidden">
@@ -71,7 +99,7 @@ const Home = () => {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: 100, opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="w-40 h-auto object-cover rounded-lg shadow-lg absolute"
+                className="w-60 h-auto object-cover rounded-lg shadow-lg absolute"
               />
             ) : null
           )}
