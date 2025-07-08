@@ -89,7 +89,7 @@ const DashboardStories = () => {
             <TableBody className='divide-y'>
               {userStories.map((story) => (
                 <TableRow key={story._id} className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                  <TableCell>
+                  <TableCell  className="py-4 px-6">
                     {new Date(story.updatedAt).toLocaleDateString()}
                   </TableCell>
                   <TableCell>

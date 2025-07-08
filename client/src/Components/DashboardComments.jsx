@@ -86,8 +86,8 @@ const DashboardComments = () => {
             </Table.Head>
             {comments.map((comment) => (
               <Table.Body className='divide-y' key={comment._id}>
-                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                  <Table.Cell>
+                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800 '>
+                  <Table.Cell  className="py-4 px-6">
                     {new Date(comment.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>{comment.content}</Table.Cell>
@@ -119,7 +119,7 @@ const DashboardComments = () => {
           )}
         </>
       ) : (
-        <p>You have no comments yet!</p>
+        <p className='text-center mt-7 font-semibold text-3xl font-medium'>You have no comments yet!</p>
       )}
       <Modal
         show={showModal}

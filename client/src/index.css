@@ -3,22 +3,27 @@
 @tailwind utilities;
 
 body {
-    height: 100vh;
-  }
+  height: 100vh;
+}
   
-  .ql-editor {
-    font-size: 1.05rem;
-  }
+.ql-editor {
+  font-size: 1.05rem;
+}
   
-  .story-chapters {
-    font-size: 1.4rem;
-    font-weight: 700;
-    font-family: sans-serif;
-    margin: 1.5rem 0;
-  }
+.story-chapters {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: sans-serif;
+  margin: 1.5rem 0;
+}
   
-  .story-content{
-    font-size: 1.2rem;
-    font-family: sans-serif;
-    margin: 1.5rem 0;
-  }
+.story-content{
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  margin: 1.5rem 0;
+}
+
+div.bg-white.rounded-lg.drop-shadow-md {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

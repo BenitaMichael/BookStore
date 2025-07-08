@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import StoryCard from '../Components/StoryCard';
 import bookImage from '../assets/bookImage.png';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const bookImages = [bookImage, bookImage, bookImage, bookImage, bookImage];
 
 const Home = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [current, setCurrent] = useState(0);
 
   const fetchStories = async () => {
     try {
@@ -24,31 +28,51 @@ const Home = () => {
     fetchStories();
   }, []);
 
-  return (
-    <div>
-      <div className="flex flex-col lg:flex-row items-center gap-6 p-28 px-3 max-w-6xl mx-auto bg-[#FAFFEB] dark:bg-gray-900 dark:text-white">
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold lg:text-6xl">Welcome to DarkLight</h1>
-          <p className="text-gray-500 text-xs sm:text-sm py-8">
-            Here you'll find a variety of stories written by an ever evolving and creative mind.
-            An unexplored world awaits you.
-          </p>
-          <Link
-            to="/search"
-            className="text-xs sm:text-sm text-[#FE5448] font-bold hover:underline"
-          >
-            View all stories
-          </Link>
-        </div>
+   useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % bookImages.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
-        <div className="flex-1 hidden lg:block"> 
-          <img
-            src={bookImage}
-            alt="Book Image"
-            className="w-full h-auto object-cover rounded-lg shadow-lg"
-          />
-        </div>
+  return (
+    <>
+      <section className="flex flex-col lg:flex-row items-center gap-6 p-28 px-3 max-w-6xl mx-auto bg-[#FAFFEB] dark:bg-gray-900 dark:text-white">
+      {/* Text content */}
+      <div className="flex-1">
+        <h1 className="text-3xl font-bold lg:text-6xl">Welcome to DarkLight</h1>
+        <p className="text-gray-500 text-xs sm:text-sm py-8">
+          Here you'll find a variety of stories written by an ever evolving and creative mind.
+          An unexplored world awaits you.
+        </p>
+        <Link
+          to="/search"
+          className="text-xs sm:text-sm text-[#FE5448] font-bold hover:underline"
+        >
+          View all stories
+        </Link>
       </div>
+
+      {/* Animated stacked books */}
+      <div className="flex-1 hidden lg:flex flex-col gap-4 items-center relative h-[400px] w-full overflow-hidden">
+        <AnimatePresence initial={false} mode="wait">
+          {bookImages.map((img, index) =>
+            index === current ? (
+              <motion.img
+                key={index}
+                src={img}
+                alt={`Book ${index + 1}`}
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: 100, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-40 h-auto object-cover rounded-lg shadow-lg absolute"
+              />
+            ) : null
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
 
       {/* Stories Section */}
       {loading && <p className="text-center text-[#FE5448]">Loading stories...</p>}
@@ -72,7 +96,7 @@ const Home = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
