@@ -51,7 +51,7 @@ const Home = () => {
 
   <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
     Discover powerful narratives and immersive tales crafted with creativity and depth.
-    Whether you're here to read, explore, or write — your journey starts now.
+    Whether you're here to read, explore, or find inspirations to write your journey starts now.
   </p>
 
   <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
