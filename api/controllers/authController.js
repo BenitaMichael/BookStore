@@ -100,3 +100,19 @@ export const googleAuth = async(req, res, next) => {
         next(error)
     }
 }
+
+// POST /api/auth/forgot-password
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ message: 'No user found with that email' });
+
+  // Generate reset token (you can use crypto or JWT)
+  const resetToken = generateToken(user._id); // your implementation
+  const resetLink = `https://your-app.com/reset-password/${resetToken}`;
+
+  // Send email with resetLink (use nodemailer or similar)
+  await sendEmail(user.email, resetLink); // your implementation
+
+  res.json({ success: true, message: 'Reset link sent to your email' });
+};

@@ -110,6 +110,13 @@ const SignIn = () => {
               </div>
             </div>
 
+            {/* <div className="text-right">
+              <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                Forgot password?
+              </Link>
+            </div> */}
+
+
             <Button
               type="submit"
               disabled={loading}

@@ -11,6 +11,7 @@ import SignUp from './Pages/SignUp'
 import UpdateStory from './Pages/UpdateStory'
 import CreateStory from './Pages/CreateStory'
 import StoryPage from './Pages/StoryPage'
+import ForgotPassword from './Pages/ForgotPassword'
 
 // COMPONENTS
 import Header from './Components/Header'
@@ -42,6 +43,7 @@ function App() {
           <Route path='/signUp' element = { <SignUp/> } />
           <Route path='/search' element={<Search />} />
           <Route path="/story/:storySlug" element={<StoryPage />} />
+          <Route path='/forgot-password' element = { <ForgotPassword/> } />
         </Routes>
       <FooterComponent/>
     </BrowserRouter>
