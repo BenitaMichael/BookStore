@@ -1,6 +1,8 @@
-import React from "react";
+import React from "react"
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
 const ContactPage = () => {
+  console.log("Formspree Endpoint:", FORMSPREE_ENDPOINT);
   return (
     <div className="bg-[#FAFFEB] dark:bg-gray-900 py-16 px-5 sm:px-10 lg:px-20">
       <div className="max-w-4xl mx-auto space-y-12">
@@ -24,7 +26,7 @@ const ContactPage = () => {
           <h2 className="text-2xl font-semibold text-[#FE5448] dark:text-[#FE5448] text-center">
             Send Us a Message
           </h2>
-          <form action="" method="POST" className="space-y-6">
+          <form action={FORMSPREE_ENDPOINT} method="POST" className="space-y-6">
             <div>
               <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Name
