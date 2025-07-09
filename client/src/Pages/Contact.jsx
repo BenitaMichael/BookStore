@@ -2,7 +2,6 @@ import React from "react"
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
 const ContactPage = () => {
-  console.log("Formspree Endpoint:", FORMSPREE_ENDPOINT);
   return (
     <div className="bg-[#FAFFEB] dark:bg-gray-900 py-16 px-5 sm:px-10 lg:px-20">
       <div className="max-w-4xl mx-auto space-y-12">
