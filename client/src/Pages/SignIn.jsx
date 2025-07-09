@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png';
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import Oauth from '../Components/Oauth';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
+import PageLoader from '../Components/PageLoader';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const [pageLoading, setPageLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -30,83 +33,103 @@ const SignIn = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+        return dispatch(signInFailure(data.message));
       }
-      if (res.ok) {
-        dispatch(signInSuccess(data));
-        navigate('/');
-      }
+      dispatch(signInSuccess(data));
+      navigate('/');
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
   };
 
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setPageLoading(false);
+    }
+    , 2000);
+
+    return () => clearTimeout(delay);
+  }, []);
+
+  if (pageLoading) return <PageLoader />;
+
   return (
-    <div className='min-h-auto mt-20 mb-20'>
-      <div className="flex p-4 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
-        {/* left */}
-        <div className="flex-1">
-          <Link
-            to='/'
-            className='w-12 m-2 flex items-center rounded-lg text-4xl font-bold py-2'
-          >
-            <h1 className='py-1 text-[#FE5448] dark:text-[#FE5448] whitespace-nowrap'>
-              Dark-Light
-            </h1>
-          </Link>
-          <p className='text-black dark:text-gray-200 font-semibold text-center md:text-left'>
-            Home to wonders and adventures. A world different from what you know awaits you...
-            <br /> Please sign in with your email and password.
+    <div className="min-h-[800] bg-gradient-to-br from-[#FAFFEB] to-purple-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-4xl bg-white/60 dark:bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden grid md:grid-cols-2 gap-10 p-8 md:p-12">
+        {/* Left: Welcome Text */}
+        <div className="space-y-5">
+          <h1 className="text-4xl font-bold text-[#A500E0]">Dark-Light</h1>
+          <p className="text-gray-700 dark:text-gray-300 text-base">
+            Welcome back to the world of wonder<br />
+            Sign in to explore stories filled with magic, mystery, and meaning.
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Don’t have an account yet?
+            <Link to="/signup" className="text-[#FE5448] font-semibold ml-2 hover:underline">
+              Sign Up
+            </Link>
           </p>
         </div>
 
-        {/* right */}
-        <div className='flex-1'>
-          <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+        {/* Right: Form */}
+        <div className="space-y-6">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <Label className='dark:text-gray-300' value='Your email' />
+              <Label htmlFor="email" value="Email" className="text-sm text-gray-700 dark:text-gray-200" />
               <TextInput
-                type='email'
-                placeholder='name@company.com'
-                id='email'
+                id="email"
+                type="email"
+                placeholder="you@example.com"
                 onChange={handleChange}
-                className='bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500'
+                className="mt-1"
+                required
               />
             </div>
+
             <div>
-              <Label className='dark:text-gray-300' value='Your password' />
-              <TextInput
-                type='password'
-                placeholder='*********'
-                id='password'
-                onChange={handleChange}
-                className='bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500'
+              <Label
+                htmlFor="password"
+                value="Your password"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  placeholder="********"
+                  onChange={handleChange}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white py-2.5 px-4 pr-10 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300"
+                >
+                  {showPassword ? <HiEyeOff className="w-5 h-5" /> : <HiEye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
+
             <Button
-              className='bg-[#A500E0] hover:!bg-[#A500E0] dark:bg-[#A500E0] dark:hover:!bg-[#A500E0] text-white border-none'
-              type='submit'
+              type="submit"
               disabled={loading}
+              className="w-full bg-gradient-to-r from-[#A500E0] to-[#FE5448] hover:from-[#8f00c8] hover:to-[#e03c38] text-white font-semibold py-1 px-4 rounded-xl shadow-lg transition-all duration-300"
             >
               {loading ? (
-                <>
-                  <Spinner size='sm' />
-                  <span className='pl-3'>Loading...</span>
-                </>
+                <div className="flex items-center gap-2">
+                  <Spinner size="sm" />
+                  <span>Signing in...</span>
+                </div>
               ) : (
                 'Sign In'
               )}
             </Button>
-            <Oauth />
           </form>
-          <div className='flex gap-2 text-sm mt-5'>
-            <span className='text-black dark:text-gray-300'>Don't have an account?</span>
-            <Link to='/signUp' className='text-blue-500'>
-              Sign Up
-            </Link>
-          </div>
+
+          <Oauth />
+
           {errorMessage && (
-            <Alert className='mt-5' color='failure'>
+            <Alert color="failure" className="mt-4">
               {errorMessage}
             </Alert>
           )}
@@ -114,6 +137,6 @@ const SignIn = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;
