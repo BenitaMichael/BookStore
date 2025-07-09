@@ -1,7 +1,20 @@
 import React from "react"
+import { useState, useEffect } from "react";
+import PageLoader from "../Components/PageLoader";
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
 const ContactPage = () => {
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    const delay = setTimeout(() =>{
+      setPageLoading(false);
+    }, 2000)
+
+    return () => clearTimeout(delay)
+  }, [])
+
+  if (pageLoading) return <PageLoader/>
   return (
     <div className="bg-[#FAFFEB] dark:bg-gray-900 py-16 px-5 sm:px-10 lg:px-20">
       <div className="max-w-4xl mx-auto space-y-12">

@@ -1,6 +1,18 @@
-import React from 'react';
+import { useState, useEffect } from "react";
+import PageLoader from "../Components/PageLoader";
 
 const About = () => {
+  const [pageLoading, setPageLoading] = useState(true);
+
+    useEffect(() => {
+    const delay = setTimeout(() => {
+      setPageLoading(false);
+    }, 2000);
+  
+    return () => clearTimeout(delay);
+  }, []);
+
+  if (pageLoading) return <PageLoader />;
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#fefce8] to-[#fdf6f6] dark:from-gray-900 dark:to-gray-950 px-4 py-16">
       <div className="max-w-3xl mx-auto text-center space-y-10">

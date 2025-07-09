@@ -6,7 +6,7 @@ import bookImage1 from '../assets/Books/flowerhand-sepia.png';
 import bookImage2 from '../assets/Books/wolf.png';
 import bookImage3 from '../assets/Books/flowerhand-1.png';
 import bookImage4 from '../assets/Books/WaterDrop.png';
-
+import PageLoader from '../Components/PageLoader';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const bookImages = [bookImage, bookImage1, bookImage2, bookImage3, bookImage4];
@@ -16,6 +16,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [current, setCurrent] = useState(0);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const fetchStories = async () => {
     try {
@@ -30,8 +31,14 @@ const Home = () => {
   };
 
   useEffect(() => {
+  const delay = setTimeout(() => {
+    setPageLoading(false);
     fetchStories();
-  }, []);
+  }, 2000);
+
+  return () => clearTimeout(delay);
+}, []);
+
 
    useEffect(() => {
     const interval = setInterval(() => {
@@ -39,9 +46,11 @@ const Home = () => {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
-
+  
+  if (pageLoading) return <PageLoader />;
   return (
     <>
+      
       <section className="flex flex-col lg:flex-row items-center gap-6 p-28 px-3 max-w-6xl mx-auto bg-[#FAFFEB] dark:bg-gray-900 dark:text-white">
       {/* Text content */}
 <div className="flex-1 space-y-6">
